@@ -17,7 +17,7 @@ phases:
       - echo Serverless version...
       - npx serverless --version
       - echo Deploying to Lambda...
-      - snpx serverless deploy-$STAGE
+      - npx serverless deploy-$STAGE
 
 cache:
   paths:
