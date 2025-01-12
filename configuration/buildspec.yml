@@ -1,0 +1,15 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - echo "Test install phase"
+  pre_build:
+    commands:
+      - echo "Test pre-build phase"
+      - exit 1
+  build:
+    commands:
+      - echo "Test build phase"
+artifacts:
+  files:
+    - '**/*'
