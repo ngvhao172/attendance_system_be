@@ -15,7 +15,7 @@ phases:
   post_build:
     commands:
       - echo Serverless version...
-      - serverless --version
+      - npx serverless --version
       - echo Deploying to Lambda...
       - snpx serverless deploy-$STAGE
 
