@@ -22,9 +22,6 @@
           "AWSREGION": "${env:AWS_REGION}"
         }
       },
-      "plugins": [
-        "serverless-offline"
-      ],
       "functions": {
         "app": {
           "handler": "dist/src/serverless.handler",
@@ -43,13 +40,19 @@
             }
           ]
         }
-      }
+      },
+      "plugins": [
+        "serverless-offline",
+        "serverless-dotenv-plugin"
+      ]
     },
-    "serviceRawFile": "service: my-serverless-app\r\n\r\nprovider:\r\n  name: aws\r\n  runtime: nodejs20.x\r\n  environment:\r\n    DEBUG: ${env:DEBUG, 0}\r\n    NODE_ENV: ${env:NODE_ENV}\r\n    PORT: ${env:PORT}\r\n\r\n    AWSACCESS_KEY_ID: ${env:AWS_ACCESS_KEY_ID}\r\n    AWSSECRET_ACCESS_KEY: ${env:AWS_SECRET_ACCESS_KEY}\r\n    AWSREGION: ${env:AWS_REGION}\r\n\r\nplugins:\r\n  - serverless-offline\r\n\r\n\r\nfunctions:\r\n  app:\r\n    handler: dist/src/serverless.handler\r\n    events:\r\n      - http:\r\n          method: ANY\r\n          path: /\r\n      - http:\r\n          method: any\r\n          path: /{proxy+}\r\n",
+    "serviceRawFile": "service: my-serverless-app\r\n\r\nprovider:\r\n  name: aws\r\n  runtime: nodejs20.x\r\n  environment:\r\n    DEBUG: ${env:DEBUG, 0}\r\n    NODE_ENV: ${env:NODE_ENV}\r\n    PORT: ${env:PORT}\r\n\r\n    AWSACCESS_KEY_ID: ${env:AWS_ACCESS_KEY_ID}\r\n    AWSSECRET_ACCESS_KEY: ${env:AWS_SECRET_ACCESS_KEY}\r\n    AWSREGION: ${env:AWS_REGION}\r\n\r\nfunctions:\r\n  app:\r\n    handler: dist/src/serverless.handler\r\n    events:\r\n      - http:\r\n          method: ANY\r\n          path: /\r\n      - http:\r\n          method: any\r\n          path: /{proxy+}\r\n\r\nplugins:\r\n  - serverless-offline\r\n  - serverless-dotenv-plugin\r\n",
     "command": [
       "deploy"
     ],
-    "options": {},
+    "options": {
+      "stage": "dev"
+    },
     "error": {
       "message": "Cannot resolve '${env:NODE_ENV}' variable at 'provider.environment.NODE_ENV'. No value is available for this variable, and no default value was provided. Please check your variable definitions or provide a default value.",
       "stack": "Error: Cannot resolve '${env:NODE_ENV}' variable at 'provider.environment.NODE_ENV'. No value is available for this variable, and no default value was provided. Please check your variable definitions or provide a default value.\n    at _ResolverManager.resolve (file:///C:/Users/Admin/.serverless/releases/4.4.18/package/dist/sf-core.js:693:57587)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async #handlePlaceholderNode (file:///C:/Users/Admin/.serverless/releases/4.4.18/package/dist/sf-core.js:693:55959)\n    at async file:///C:/Users/Admin/.serverless/releases/4.4.18/package/dist/sf-core.js:693:53887\n    at async processNodeAndHandleCompletion (file:///C:/Users/Admin/.serverless/releases/4.4.18/package/dist/sf-core.js:693:44836)",
