@@ -1,0 +1,28 @@
+service: my-serverless-app
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  environment:
+    DEBUG: ${env:DEBUG, 0}
+    NODE_ENV: ${env:NODE_ENV}
+    PORT: ${env:PORT}
+
+    AWSACCESS_KEY_ID: ${env:AWS_ACCESS_KEY_ID}
+    AWSSECRET_ACCESS_KEY: ${env:AWS_SECRET_ACCESS_KEY}
+    AWSREGION: ${env:AWS_REGION}
+
+plugins:
+  - serverless-offline
+
+
+functions:
+  app:
+    handler: dist/src/serverless.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: any
+          path: /{proxy+}

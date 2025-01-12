@@ -1,0 +1,83 @@
+{
+  "D:\\Code\\Internship_Project\\attendance-system-be": {
+    "versionSfCore": null,
+    "versionFramework": "4.4.18",
+    "isWithinCompose": false,
+    "isCompose": false,
+    "composeOrgName": null,
+    "composeServiceName": null,
+    "servicePath": "D:\\Code\\Internship_Project\\attendance-system-be",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "service": "my-serverless-app",
+      "provider": {
+        "name": "aws",
+        "runtime": "nodejs20.x",
+        "environment": {
+          "DEBUG": 0,
+          "NODE_ENV": "${env:NODE_ENV}",
+          "PORT": "5001",
+          "AWSACCESS_KEY_ID": "<REDACTED>",
+          "AWSSECRET_ACCESS_KEY": "<REDACTED>",
+          "AWSREGION": "${env:AWS_REGION}"
+        }
+      },
+      "plugins": [
+        "serverless-offline"
+      ],
+      "functions": {
+        "app": {
+          "handler": "dist/src/serverless.handler",
+          "events": [
+            {
+              "http": {
+                "method": "ANY",
+                "path": "/"
+              }
+            },
+            {
+              "http": {
+                "method": "any",
+                "path": "/{proxy+}"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "serviceRawFile": "service: my-serverless-app\r\n\r\nprovider:\r\n  name: aws\r\n  runtime: nodejs20.x\r\n  environment:\r\n    DEBUG: ${env:DEBUG, 0}\r\n    NODE_ENV: ${env:NODE_ENV}\r\n    PORT: ${env:PORT}\r\n\r\n    AWSACCESS_KEY_ID: ${env:AWS_ACCESS_KEY_ID}\r\n    AWSSECRET_ACCESS_KEY: ${env:AWS_SECRET_ACCESS_KEY}\r\n    AWSREGION: ${env:AWS_REGION}\r\n\r\nplugins:\r\n  - serverless-offline\r\n\r\n\r\nfunctions:\r\n  app:\r\n    handler: dist/src/serverless.handler\r\n    events:\r\n      - http:\r\n          method: ANY\r\n          path: /\r\n      - http:\r\n          method: any\r\n          path: /{proxy+}\r\n",
+    "command": [
+      "deploy"
+    ],
+    "options": {},
+    "error": {
+      "message": "Cannot resolve '${env:NODE_ENV}' variable at 'provider.environment.NODE_ENV'. No value is available for this variable, and no default value was provided. Please check your variable definitions or provide a default value.",
+      "stack": "Error: Cannot resolve '${env:NODE_ENV}' variable at 'provider.environment.NODE_ENV'. No value is available for this variable, and no default value was provided. Please check your variable definitions or provide a default value.\n    at _ResolverManager.resolve (file:///C:/Users/Admin/.serverless/releases/4.4.18/package/dist/sf-core.js:693:57587)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async #handlePlaceholderNode (file:///C:/Users/Admin/.serverless/releases/4.4.18/package/dist/sf-core.js:693:55959)\n    at async file:///C:/Users/Admin/.serverless/releases/4.4.18/package/dist/sf-core.js:693:53887\n    at async processNodeAndHandleCompletion (file:///C:/Users/Admin/.serverless/releases/4.4.18/package/dist/sf-core.js:693:44836)",
+      "code": "MISSING_VARIABLE_RESULT"
+    },
+    "machineId": "0282b4df7ff3e08bdd0997761d3ac68f",
+    "stage": "dev",
+    "accessKeyV2": "<REDACTED>",
+    "accessKeyV1": "<REDACTED>",
+    "orgId": "149e93fe-1887-4016-93e1-c2ac01eeb9e9",
+    "orgName": "haonguyen1207",
+    "userId": "TWld9Bw4kVh3qX9kPT",
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "userName": "haonguyen1207",
+    "subscription": null,
+    "userEmail": "haonguyen07122003@gmail.com",
+    "serviceProviderAwsCfStackId": null,
+    "serviceProviderAwsCfStackCreated": null,
+    "serviceProviderAwsCfStackUpdated": null,
+    "serviceProviderAwsCfStackStatus": null,
+    "serviceProviderAwsCfStackOutputs": null
+  }
+}
