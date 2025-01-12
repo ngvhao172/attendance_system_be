@@ -9,8 +9,11 @@ provider:
     PORT: ${env:PORT}
 
     AWSACCESS_KEY_ID: ${env:AWS_ACCESS_KEY_ID}
+    - echo ${env:AWS_ACCESS_KEY_ID}
     AWSSECRET_ACCESS_KEY: ${env:AWS_SECRET_ACCESS_KEY}
+    - echo ${env:AWS_SECRET_ACCESS_KEY}
     AWSREGION: ${env:AWS_REGION}
+    - echo ${env:AWS_REGION}
 
 plugins:
   - serverless-offline

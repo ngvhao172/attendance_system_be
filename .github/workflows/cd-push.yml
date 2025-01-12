@@ -31,7 +31,7 @@ jobs:
           elif [[ "${{ github.ref_name }}" == "main" ]]; then
             echo "project_name=codebuild-attendance-main" >> $GITHUB_ENV
           elif [[ "${{ github.ref_name }}" == "staging" ]]; then
-            echo "project_name=codebuild-attendance-dev-staging" >> $GITHUB_ENV
+            echo "project_name=codebuild-attendance-staging" >> $GITHUB_ENV
           else
             echo "Unknown branch, exiting."
             exit 1
