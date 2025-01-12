@@ -1,10 +1,10 @@
 export enum ELeaveType {
-    Unpaid = "unpaid",
-    Annual = "annual",
+  Unpaid = "unpaid",
+  Annual = "annual",
 }
 
 export enum ELeaveRequest {
-    Pending = "pending",
-    Approved = "approved",
-    Rejected = "rejected"
+  Pending = "pending",
+  Approved = "approved",
+  Rejected = "rejected",
 }

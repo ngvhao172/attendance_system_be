@@ -1,14 +1,13 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import * as bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
-import * as dotenv from 'dotenv';
-import { API_PREFIX_PATH } from './utils/constants';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import compression from 'compression';
-
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "./app.module";
+import { INestApplication, Logger, ValidationPipe } from "@nestjs/common";
+import { NestExpressApplication } from "@nestjs/platform-express";
+import * as bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import * as dotenv from "dotenv";
+import { API_PREFIX_PATH } from "./utils/constants";
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import compression from "compression";
 
 export function setupMiddleware(app: INestApplication) {
   const expressApp = app as NestExpressApplication;
@@ -22,10 +21,10 @@ export function setupMiddleware(app: INestApplication) {
 
   // app.use([apiPath]);
   const config = new DocumentBuilder()
-    .setTitle('Xypass')
-    .setDescription('Xypass project')
-    .setVersion('1.0')
-    .addBearerAuth({ type: 'http', scheme: 'bearer', in: 'header' }, 'token')
+    .setTitle("Xypass")
+    .setDescription("Xypass project")
+    .setVersion("1.0")
+    .addBearerAuth({ type: "http", scheme: "bearer", in: "header" }, "token")
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
@@ -33,28 +32,27 @@ export function setupMiddleware(app: INestApplication) {
     swaggerOptions: { persistAuthorization: true },
   });
 
-  expressApp.disable('x-powered-by');
+  expressApp.disable("x-powered-by");
 
-  expressApp.use(bodyParser.json({ limit: '2048mb' }));
-  expressApp.use(bodyParser.urlencoded({ limit: '2048mb', extended: true }));
+  expressApp.use(bodyParser.json({ limit: "2048mb" }));
+  expressApp.use(bodyParser.urlencoded({ limit: "2048mb", extended: true }));
 
   expressApp.use(compression());
   expressApp.use(cookieParser());
 
   // Enable CORS
   expressApp.enableCors({
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   });
 
   return expressApp;
 }
 
-
 async function createAppInstance() {
   const app = await NestFactory.create(AppModule, {
-    logger: ['error', 'warn', 'log'],
+    logger: ["error", "warn", "log"],
   });
 
   setupMiddleware(app);

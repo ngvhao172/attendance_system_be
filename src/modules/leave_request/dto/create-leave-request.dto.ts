@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsEnum, IsDateString } from 'class-validator';
-import { ELeaveType, ELeaveRequest } from 'src/utils/enums/leave_request.enum';
+import { IsNotEmpty, IsEnum, IsDateString } from "class-validator";
+import { ELeaveType, ELeaveRequest } from "src/utils/enums/leave_request.enum";
 
 export class CreateLeaveRequestDto {
   @IsNotEmpty()
@@ -18,4 +18,3 @@ export class CreateLeaveRequestDto {
   @IsEnum(ELeaveRequest)
   status: ELeaveRequest;
 }
-

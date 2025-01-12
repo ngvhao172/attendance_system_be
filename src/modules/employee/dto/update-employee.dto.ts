@@ -1,4 +1,4 @@
-import { IsString, IsDecimal, IsOptional, IsNumber } from 'class-validator';
+import { IsString, IsDecimal, IsOptional } from "class-validator";
 
 export class UpdateEmployeeDto {
   @IsString()
@@ -11,5 +11,5 @@ export class UpdateEmployeeDto {
 
   @IsDecimal()
   @IsOptional()
-  baseWage?: number; 
+  baseWage?: number;
 }

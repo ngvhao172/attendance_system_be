@@ -1,5 +1,5 @@
-import { IsEnum, IsOptional, IsString } from 'class-validator';
-import { ERole } from 'src/utils/enums/role.enum';
+import { IsEnum, IsOptional, IsString } from "class-validator";
+import { ERole } from "src/utils/enums/role.enum";
 
 export class UpdateUserDto {
   @IsOptional()

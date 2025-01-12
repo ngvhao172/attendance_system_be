@@ -3,21 +3,20 @@ import { ELeaveRequest, ELeaveType } from "src/utils/enums/leave_request.enum";
 import { Column, Entity, ManyToOne } from "typeorm";
 import { Employee } from "../employee/employee.entity";
 
-@Entity('leave_requests')
+@Entity("leave_requests")
 export class LeaveRequest extends IEntity {
-
-  @Column({ type: 'enum', enum: ELeaveType })
+  @Column({ type: "enum", enum: ELeaveType })
   leaveType: ELeaveType;
 
-  @Column({ type: 'date' })
+  @Column({ type: "date" })
   startDate: Date;
 
-  @Column({ type: 'date' })
+  @Column({ type: "date" })
   endDate: Date;
 
-  @Column({ type: 'enum', enum: ELeaveRequest })
+  @Column({ type: "enum", enum: ELeaveRequest })
   status: ELeaveRequest;
 
   @ManyToOne(() => Employee, (employee) => employee.leaveRequests)
-  employee: Employee
+  employee: Employee;
 }

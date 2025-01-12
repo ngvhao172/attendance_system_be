@@ -1,10 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { CreateLeaveRequestDto } from './dto/create-leave-request.dto';
-import { LeaveRequest } from './leave_request.entity';
-import { UpdateLeaveRequestDto } from './dto/update-leave-request.dto';
-import { ELeaveRequest } from 'src/utils/enums/leave_request.enum';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { CreateLeaveRequestDto } from "./dto/create-leave-request.dto";
+import { LeaveRequest } from "./leave_request.entity";
+import { UpdateLeaveRequestDto } from "./dto/update-leave-request.dto";
+import { ELeaveRequest } from "src/utils/enums/leave_request.enum";
 
 @Injectable()
 export class LeaveRequestService {
@@ -13,19 +13,23 @@ export class LeaveRequestService {
     private readonly leaveRequestRepository: Repository<LeaveRequest>,
   ) {}
 
-  async create(createLeaveRequestDto: CreateLeaveRequestDto): Promise<LeaveRequest> {
-    const leaveRequest = this.leaveRequestRepository.create(createLeaveRequestDto);
+  async create(
+    createLeaveRequestDto: CreateLeaveRequestDto,
+  ): Promise<LeaveRequest> {
+    const leaveRequest = this.leaveRequestRepository.create(
+      createLeaveRequestDto,
+    );
     return this.leaveRequestRepository.save(leaveRequest);
   }
 
   async findAll(): Promise<LeaveRequest[]> {
-    return this.leaveRequestRepository.find({ relations: ['employee'] });
+    return this.leaveRequestRepository.find({ relations: ["employee"] });
   }
 
   async findOne(id: number): Promise<LeaveRequest> {
-    const leaveRequest = await this.leaveRequestRepository.findOne({ 
-      where: {id},
-      relations: ['employee'],
+    const leaveRequest = await this.leaveRequestRepository.findOne({
+      where: { id },
+      relations: ["employee"],
     });
     if (!leaveRequest) {
       throw new NotFoundException(`Leave request with ID ${id} not found`);
@@ -38,7 +42,7 @@ export class LeaveRequestService {
     updateLeaveRequestDto: UpdateLeaveRequestDto,
   ): Promise<LeaveRequest> {
     await this.leaveRequestRepository.update(id, updateLeaveRequestDto);
-    return this.leaveRequestRepository.findOne({where: {id}});
+    return this.leaveRequestRepository.findOne({ where: { id } });
   }
 
   async remove(id: number): Promise<void> {
@@ -48,8 +52,13 @@ export class LeaveRequestService {
     }
   }
 
-  async changeLeaveRequestStatus(id: number, status: ELeaveRequest): Promise<LeaveRequest> {
-    const leaveRequest = await this.leaveRequestRepository.findOne({where: {id}});
+  async changeLeaveRequestStatus(
+    id: number,
+    status: ELeaveRequest,
+  ): Promise<LeaveRequest> {
+    const leaveRequest = await this.leaveRequestRepository.findOne({
+      where: { id },
+    });
 
     if (!leaveRequest) {
       throw new NotFoundException(`Leave request with ID ${id} not found`);
