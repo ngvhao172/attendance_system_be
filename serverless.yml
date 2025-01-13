@@ -9,9 +9,9 @@ provider:
     DEBUG: ${env:DEBUG, 0}
     NODE_ENV: ${env:NODE_ENV}
     PORT: ${env:PORT}
-    AWSACCESS_KEY_ID: ${env:AWSACCESS_KEY_ID}
-    AWSSECRET_ACCESS_KEY: ${env:AWSSECRET_ACCESS_KEY}
-    AWSREGION: ${env:AWSREGION}
+    # AWSACCESS_KEY_ID: ${env:AWSACCESS_KEY_ID}
+    # AWSSECRET_ACCESS_KEY: ${env:AWSSECRET_ACCESS_KEY}
+    # AWSREGION: ${env:AWSREGION}
 
 functions:
   app:
