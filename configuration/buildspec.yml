@@ -6,7 +6,6 @@ phases:
       nodejs: 18
     commands:
       - echo Installing dependencies...
-      # - npm install --save-dev serverless@3.40.0
       - npm install
   build:
     commands:
@@ -17,7 +16,7 @@ phases:
       - echo Serverless version...
       - npx serverless --version
       - echo Deploying to Lambda...
-      - npx serverless deploy-$STAGE
+      - npm run sls:deploy-dev
 
 cache:
   paths:
