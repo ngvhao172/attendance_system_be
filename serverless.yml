@@ -1,4 +1,4 @@
-service: my-serverless-app
+service: attendance-system-be
 useDotenv: true
 
 provider:
