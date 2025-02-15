@@ -1,11 +1,12 @@
-import { MigrationInterface, QueryRunner } from 'typeorm';
+import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class CreateEmployeeDummyData1739500000000 implements MigrationInterface {
-  name = 'CreateEmployeeDummyData1739500000000';
+export class CreateEmployeeDummyData1739500000000
+  implements MigrationInterface
+{
+  name = "CreateEmployeeDummyData1739500000000";
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-
-      await queryRunner.query(`
+    await queryRunner.query(`
         INSERT INTO employee (name, position, baseWage, companyId, userId)
         VALUES
             ('Jane Smith', 'Manager', 5500, 2, 1),
@@ -108,10 +109,10 @@ export class CreateEmployeeDummyData1739500000000 implements MigrationInterface 
             ('Isabella Young', 'Developer', 4500, 9, 98),
             ('Lucas Scott', 'Designer', 4400, 10, 99),
             ('Benjamin King', 'HR', 5100, 1, 100);
-    `);         
+    `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query('DELETE FROM employee');
+    await queryRunner.query("DELETE FROM employee");
   }
 }

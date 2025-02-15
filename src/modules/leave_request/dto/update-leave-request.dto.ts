@@ -1,5 +1,5 @@
-import { IsOptional, IsEnum, IsDateString } from 'class-validator';
-import { ELeaveType, ELeaveRequest } from 'src/utils/enums/leave_request.enum';
+import { IsOptional, IsEnum, IsDateString } from "class-validator";
+import { ELeaveType, ELeaveRequest } from "src/utils/enums/leave_request.enum";
 
 export class UpdateLeaveRequestDto {
   @IsOptional()

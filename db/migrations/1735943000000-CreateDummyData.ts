@@ -1,7 +1,9 @@
-import { MigrationInterface, QueryRunner } from 'typeorm';
+import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class CreateDummyDataWithUser1735943000000 implements MigrationInterface {
-  name = 'CreateDummyDataWithUser1735943000000';
+export class CreateDummyDataWithUser1735943000000
+  implements MigrationInterface
+{
+  name = "CreateDummyDataWithUser1735943000000";
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     // Insert 100 users (1 User per Employee)
@@ -134,11 +136,11 @@ export class CreateDummyDataWithUser1735943000000 implements MigrationInterface 
           ('Company H', '1819 Lane, Old Town', (SELECT id FROM users WHERE email = 'company8@example.com')),
           ('Company I', '2021 Road, New City', (SELECT id FROM users WHERE email = 'company9@example.com')),
           ('Company J', '2223 Avenue, Coastal', (SELECT id FROM users WHERE email = 'company10@example.com'));
-      `);     
+      `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query('DELETE FROM users');
-    await queryRunner.query('DELETE FROM company');
+    await queryRunner.query("DELETE FROM users");
+    await queryRunner.query("DELETE FROM company");
   }
 }

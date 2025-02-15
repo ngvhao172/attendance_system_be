@@ -1,17 +1,22 @@
-import { registerDecorator, ValidationArguments, ValidationOptions } from 'class-validator';
-import { EMAIL_REGEX } from 'src/utils/constants';
-
+import {
+  registerDecorator,
+  ValidationArguments,
+  ValidationOptions,
+} from "class-validator";
+import { EMAIL_REGEX } from "src/utils/constants";
 
 export function IsValidEmail(validationOptions?: ValidationOptions) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (object: any, propertyName: string) => {
     registerDecorator({
-      name: 'isValidEmail',
+      name: "isValidEmail",
       target: object.constructor,
       propertyName: propertyName,
       options: validationOptions,
       validator: {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         validate(value: any) {
-          if (typeof value !== 'string') {
+          if (typeof value !== "string") {
             return false;
           }
 

@@ -1,5 +1,5 @@
-import { IsString, IsNotEmpty } from 'class-validator';
-import { IsValidEmail } from 'src/decorators/is-valid-email.decorator';
+import { IsString, IsNotEmpty } from "class-validator";
+import { IsValidEmail } from "src/decorators/is-valid-email.decorator";
 
 export class CreateCompanyDto {
   @IsString()

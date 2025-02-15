@@ -1,0 +1,29 @@
+service: attendance-system-be
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-southeast-1
+  environment:
+    DEBUG: ${env:DEBUG, 0}
+    NODE_ENV: ${env:NODE_ENV}
+    PORT: ${env:PORT}
+    AWSACCESS_KEY_ID: ${env:AWSACCESS_KEY_ID}
+    AWSSECRET_ACCESS_KEY: ${env:AWSSECRET_ACCESS_KEY}
+    AWSREGION: ${env:AWSREGION}
+
+functions:
+  app:
+    handler: dist/src/serverless.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: any
+          path: /{proxy+}
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin

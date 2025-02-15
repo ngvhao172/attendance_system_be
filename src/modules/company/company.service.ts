@@ -1,13 +1,19 @@
-import { BadRequestException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Transaction } from 'typeorm';
-import { Company } from './company.entity';
-import { CreateCompanyDto } from './dto/create-company.dto';
-import { UpdateCompanyDto } from './dto/update-company.dto';
-import { UserService } from '../user/user.service';
-import { CreateUserDto } from '../user/dto/create-user.dto';
-import { ERole } from 'src/utils/enums/role.enum';
-import { EmployeeService } from '../employee/employee.service';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Company } from "./company.entity";
+import { CreateCompanyDto } from "./dto/create-company.dto";
+import { UpdateCompanyDto } from "./dto/update-company.dto";
+import { UserService } from "../user/user.service";
+import { CreateUserDto } from "../user/dto/create-user.dto";
+import { ERole } from "src/utils/enums/role.enum";
+import { EmployeeService } from "../employee/employee.service";
 
 @Injectable()
 export class CompanyService {
@@ -19,18 +25,19 @@ export class CompanyService {
   ) {}
 
   async create(createCompanyDto: CreateCompanyDto): Promise<Company> {
-    const queryRunner = this.companyRepository.manager.connection.createQueryRunner();
+    const queryRunner =
+      this.companyRepository.manager.connection.createQueryRunner();
     await queryRunner.startTransaction();
 
-    const createUserDto: CreateUserDto = { ...createCompanyDto, role: ERole.Company }
+    const createUserDto: CreateUserDto = {
+      ...createCompanyDto,
+      role: ERole.Company,
+    };
 
     try {
-      const user = await this.userService.create(
-        createUserDto,
-        queryRunner,
-      );
+      const user = await this.userService.create(createUserDto, queryRunner);
 
-      const companyDto: Partial<Company> = {...createCompanyDto};
+      const companyDto: Partial<Company> = { ...createCompanyDto };
       companyDto.user = user;
       const savedCompany = await queryRunner.manager.save(Company, companyDto);
       await queryRunner.commitTransaction();
@@ -44,26 +51,37 @@ export class CompanyService {
   }
 
   async findAll(): Promise<Company[]> {
-    return this.companyRepository.find({ relations: ['user', 'employees'] });
+    return this.companyRepository.find({ relations: ["user", "employees"] });
   }
 
   async findOne(id: number): Promise<Company> {
     return this.companyRepository.findOne({
       where: { id },
-      relations: ['user', 'employees'],
+      relations: ["user", "employees"],
     });
   }
 
-  async update(userId: number, id: number, updateCompanyDto: UpdateCompanyDto): Promise<Company> {
+  async update(
+    userId: number,
+    id: number,
+    updateCompanyDto: UpdateCompanyDto,
+  ): Promise<Company> {
     await this.companyRepository.update(id, updateCompanyDto);
-    return this.companyRepository.findOne({ where: { id: id, user: {id: userId} } });
+    return this.companyRepository.findOne({
+      where: { id: id, user: { id: userId } },
+    });
   }
 
   async remove(id: number): Promise<void> {
     await this.companyRepository.delete(id);
   }
 
-  async calculateSalary(companyId: number, employeeId: number, month: number, year: number): Promise<number> {
+  async calculateSalary(
+    companyId: number,
+    employeeId: number,
+    month: number,
+    year: number,
+  ): Promise<number> {
     const employee = await this.employeeService.findOne(employeeId);
 
     if (!employee) {
@@ -71,22 +89,29 @@ export class CompanyService {
     }
 
     const attendances = employee.attendances.filter(
-      (attendance) => 
-        attendance.date.getFullYear() === year && 
+      (attendance) =>
+        attendance.date.getFullYear() === year &&
         attendance.date.getMonth() + 1 === month,
     );
 
     if (attendances.length === 0) {
-      throw new BadRequestException(`No attendance records found for the given month and year`);
+      throw new BadRequestException(
+        `No attendance records found for the given month and year`,
+      );
     }
 
-    const totalHoursWorked = attendances.reduce((sum, attendance) => sum + attendance.hoursWorked, 0);
+    const totalHoursWorked = attendances.reduce(
+      (sum, attendance) => sum + attendance.hoursWorked,
+      0,
+    );
     const hourlyRate = employee.baseWage;
     return totalHoursWorked * hourlyRate;
   }
 
   async getCompanyIdByUserId(userId: number): Promise<number> {
-    const company = await this.companyRepository.findOne({where: {user: {id: userId}}});
+    const company = await this.companyRepository.findOne({
+      where: { user: { id: userId } },
+    });
     return company.id;
   }
 }
